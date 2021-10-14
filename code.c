@@ -10,9 +10,26 @@ typedef struct coordinate
   char code[4];
 }PT;
 
+void frame()
+{ outtextxy(150,12,"-: Mid - Point Line Clipping Algorithm :-");
+  line(0,0,getmaxx(),0);
+  line(0,0,0,getmaxy());
+  line(0,getmaxy(),getmaxx(),getmaxy());
+  line(getmaxx(),0,getmaxx(),getmaxy());
+  line(0,30,getmaxx(),30);
+  line(0,450,getmaxx(),450);
+}
+
 void pause()
 { outtextxy(10,460,"Press any key to Continue ...");
   getch();
+}
+
+void drawwindow()
+{ line(150,100,450,100);
+  line(450,100,450,400);
+  line(450,400,150,400);
+  line(150,400,150,100);
 }
 
 void drawline (PT p1,PT p2,int cl)
@@ -55,6 +72,9 @@ int visibility(PT p1,PT p2)
   { if((p1.code[i]==p2.code[i])&&(p1.code[i]=='1'))
     flag=0;
   }
+  if(flag==0)
+  return(1);
+  return(2);
 }
 
 void midsub(PT p1,PT p2)
@@ -83,12 +103,25 @@ void main()
 { int gd=DETECT,gm,v;
   PT p1,p2,ptemp;
   initgraph(&gd,&gm,"C:\\TURBOC3\\BGI ");
+  frame();
   printf("\n\n\n Enter x1 y1 : ");
+  frame();
   scanf("%d %d",&p1.x,&p1.y);
   printf(" Enter x2 y2 : ");
+  frame();
   scanf("%d %d",&p2.x,&p2.y);
+  pause();
   cleardevice();
+  frame();
+  drawwindow();
+  pause();
+  drawline(p1,p2,15);
+  pause();
+  cleardevice();
+  frame();
   drawwindow();
   midsub(p1,p2);
+  outtextxy(10,460,"Press any key to Continue ...");
+  getch();
   closegraph();
 }
